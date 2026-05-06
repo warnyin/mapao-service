@@ -1,13 +1,51 @@
 ---
 name: mapao-service
-description: Use this skill when the user wants to build, integrate, or scaffold a frontend or mobile client that consumes the public Mapao geospatial API — covers auth, records, record-types, campaigns, attachments, shares, metadata, and /me. Triggers on requests like "connect to mapao", "add mapao login", "show mapao records on a map", "scaffold a mapao client", or any work targeting `mapao-api.warnyin.com`. Loads the endpoint catalog and resource schemas from `./specs/`, detects the user's stack (Next.js, Flutter, Swift, Kotlin, etc.), and writes client code that matches real fields and verbs — without reading OpenAPI or Swagger.
+description: Build a working frontend or mobile client for the public Mapao geospatial API in minutes. Just say what you want — "show flooded points on a map", "add a login screen", "upload a photo to a record", "list my campaigns", "share a record by public link" — and this skill picks the right endpoints, detects your stack (Next.js, Flutter, React Native, Swift, Kotlin, Vue, plain TS), and writes code that uses your project's existing HTTP client and conventions. Covers the full public surface (auth, records with bbox/proximity queries, record-types, campaigns, attachments, shares, metadata, PDPA /me). No OpenAPI/Swagger reading required — the live endpoint catalog and resource schemas ship with the skill.
 ---
 
 # Mapao — API Integration Skill
 
-You are about to help the user build a frontend or mobile client that talks to the **public Mapao API** at `https://mapao-api.warnyin.com/api/v1`.
+This skill helps people build a frontend or mobile client on top of the **public Mapao API** at `https://mapao-api.warnyin.com/api/v1`. The skill ships its own snapshot of every public resource under `./specs/` (relative to this `SKILL.md`). Always read the spec file before writing code — do **not** invent endpoints, fields, or verbs.
 
-This skill ships its own snapshot of every public resource under `./specs/` (relative to this `SKILL.md`). Always read the spec file before writing code — do **not** invent endpoints, fields, or verbs.
+## Try asking — concrete examples
+
+The skill activates on any request that integrates with Mapao. Examples:
+
+| User says | What happens |
+| --- | --- |
+| `Show flooded points on a map` | Calls `records` with bbox query + `record-types` for icons. Generates map view in detected stack. |
+| `Add a login screen for Mapao` | Reads `auth` spec. Generates email/password form, login action, cookie handling, error states (401, 429 lockout, 422 validation). |
+| `Upload a photo when reporting a record` | Reads `attachments` + `records`. Generates picker → POST `/records/{id}/attachments` flow with progress + retry. |
+| `List my saved records` | Calls `records` with `created_by_me=true`. Generates paginated list view. |
+| `Share a record by public link` | Reads `shares`. Generates "Share" button → opaque-token URL → public viewer route at `/public/r/{token}` (no auth required). |
+| `Edit record fields with a dynamic form` | Reads `metadata` (form schema) + `records`. Generates form that adapts to record-type schema. |
+| `Let user delete their account (PDPA)` | Reads `me`. Generates "Export my data" + "Delete my account" UI flows. |
+| `Show campaigns I'm part of` | Reads `campaigns`. Generates list + detail view. |
+
+Generated code uses **your project's existing patterns**: `dio`/`axios`/`ktor` instead of adding a new HTTP client, your existing state management (Riverpod, Zustand, Redux, etc.), your existing routing. It reads `MAPAO_API_BASE_URL` from env so dev/staging swap is one config change.
+
+## Quick example — Flutter app showing flood incidents on a map
+
+```text
+You:    Show flood incident records on a map of Bangkok
+
+Skill:  Detected stack: Flutter 3.x with Riverpod (saw pubspec.yaml).
+        Endpoints I'll call:
+          GET  /api/v1/records/?bbox=100.3,13.5,100.9,14.0&record_type_slug=flood
+          GET  /api/v1/record-types/
+
+        Files I'll create:
+          lib/mapao/api_client.dart           — Dio client + auth cookie/Bearer handling
+          lib/mapao/records_repository.dart   — bbox query + GeoJSON parsing
+          lib/features/map/flood_map_view.dart — flutter_map widget with markers
+
+        Env: MAPAO_API_BASE_URL (default https://mapao-api.warnyin.com)
+        New dep: flutter_map ^7.0.0  (already had dio + riverpod)
+
+        OK to write?
+```
+
+After you confirm, the skill writes those files using real Mapao schemas (so field names like `id`, `record_type_id`, `geom`, `properties`, `created_at` come from `./specs/records.md`, not made up).
 
 ## What Mapao is
 
