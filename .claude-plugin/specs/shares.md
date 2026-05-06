@@ -15,7 +15,7 @@ cleartext token appears — callers must save the URL immediately.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_id` | path | `uuid` | yes |  |
+| `record_id` | path | `string` | yes |  |
 
 **Request body** (`application/json`)
 
@@ -40,11 +40,11 @@ _List Share Links_
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_id` | path | `uuid` | yes |  |
+| `record_id` | path | `string` | yes |  |
 
 **Responses**
 
-- **200** Successful Response - `array<ShareLinkResponse>`
+- **200** Successful Response - `list[ShareLinkResponse]`
 - **422** Validation Error - `HTTPValidationError`
 
 
@@ -58,7 +58,7 @@ _Revoke Share Link_
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `share_id` | path | `uuid` | yes |  |
+| `share_id` | path | `string` | yes |  |
 
 **Responses**
 
@@ -78,11 +78,11 @@ Audit log of who has viewed this share link.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `share_id` | path | `uuid` | yes |  |
+| `share_id` | path | `string` | yes |  |
 
 **Responses**
 
-- **200** Successful Response - `array<ShareLinkViewResponse>`
+- **200** Successful Response - `list[ShareLinkViewResponse]`
 - **422** Validation Error - `HTTPValidationError`
 
 

@@ -48,7 +48,7 @@ _List My External Identities_
 
 **Responses**
 
-- **200** Successful Response - `array<ExternalIdentityResponse>`
+- **200** Successful Response - `list[ExternalIdentityResponse]`
 
 
 ### `DELETE /api/v1/me/external-identities/{identity_id}`
@@ -61,7 +61,7 @@ _Unlink External Identity_
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `identity_id` | path | `uuid` | yes |  |
+| `identity_id` | path | `string` | yes |  |
 
 **Responses**
 

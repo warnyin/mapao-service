@@ -152,6 +152,8 @@ should discard their access token locally on logout.
 
 **Auth:** public
 
+**Request body** (`application/json`)
+
 **Responses**
 
 - **204** Successful Response

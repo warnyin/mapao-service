@@ -16,14 +16,14 @@ hard cap 100 per request.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | query | `uuid | null` | no |  |
+| `record_type_id` | query | `string | null` | no |  |
 | `status` | query | `string | null` | no |  |
 | `page` | query | `integer` | no | 1-indexed page number |
 | `page_size` | query | `integer` | no | Hard cap 100 prevents OOM |
 
 **Responses**
 
-- **200** Successful Response - `array<CampaignResponse>`
+- **200** Successful Response - `list[CampaignResponse]`
 - **422** Validation Error - `HTTPValidationError`
 
 
@@ -39,12 +39,12 @@ Create a new campaign (e.g. 'ไฟป่าภาคเหนือ 2026').
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `record_type_id` | `uuid` | yes |  |
+| `record_type_id` | `string` | yes |  |
 | `name` | `string` | yes |  |
 | `slug` | `string` | yes |  |
 | `description` | `string | null` | no |  |
-| `start_date` | `datetime | null` | no |  |
-| `end_date` | `datetime | null` | no |  |
+| `start_date` | `string | null` | no |  |
+| `end_date` | `string | null` | no |  |
 | `settings` | `object` | no |  |
 
 **Responses**
@@ -63,7 +63,7 @@ _Get Campaign_
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `campaign_id` | path | `uuid` | yes |  |
+| `campaign_id` | path | `string` | yes |  |
 
 **Responses**
 
@@ -81,7 +81,7 @@ _Update Campaign_
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `campaign_id` | path | `uuid` | yes |  |
+| `campaign_id` | path | `string` | yes |  |
 
 **Request body** (`application/json`)
 
@@ -89,8 +89,8 @@ _Update Campaign_
 | --- | --- | --- | --- |
 | `name` | `string | null` | no |  |
 | `description` | `string | null` | no |  |
-| `start_date` | `datetime | null` | no |  |
-| `end_date` | `datetime | null` | no |  |
+| `start_date` | `string | null` | no |  |
+| `end_date` | `string | null` | no |  |
 | `status` | `string | null` | no |  |
 | `settings` | `object | null` | no |  |
 

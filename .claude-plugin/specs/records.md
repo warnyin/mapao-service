@@ -13,8 +13,8 @@ Supports: type filter, campaign filter, bbox, proximity, JSONB attribute filter.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | query | `uuid | null` | no | Filter by record type |
-| `campaign_id` | query | `uuid | null` | no | Filter by campaign |
+| `record_type_id` | query | `string | null` | no | Filter by record type |
+| `campaign_id` | query | `string | null` | no | Filter by campaign |
 | `status` | query | `string | null` | no |  |
 | `bbox` | query | `string | null` | no | Bounding box: minLng,minLat,maxLng,maxLat |
 | `lng` | query | `number | null` | no | Longitude for proximity search |
@@ -42,13 +42,13 @@ Create a new record with optional GeoJSON geometry and JSONB attributes.
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `record_type_id` | `uuid` | yes |  |
-| `campaign_id` | `uuid | null` | no |  |
+| `record_type_id` | `string` | yes |  |
+| `campaign_id` | `string | null` | no |  |
 | `geom` | `object | null` | no | GeoJSON geometry |
 | `status` | `string` | no |  |
 | `attributes` | `object` | no | Dynamic JSONB data |
 | `external_ref` | `string | null` | no |  |
-| `event_date` | `datetime | null` | no |  |
+| `event_date` | `string | null` | no |  |
 
 **Responses**
 
@@ -68,7 +68,7 @@ Soft-delete a record by setting status to 'deleted'.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_id` | path | `uuid` | yes |  |
+| `record_id` | path | `string` | yes |  |
 
 **Responses**
 
@@ -88,7 +88,7 @@ Get a single record as GeoJSON Feature.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_id` | path | `uuid` | yes |  |
+| `record_id` | path | `string` | yes |  |
 
 **Responses**
 
@@ -108,7 +108,7 @@ Update a record's attributes, status, or geometry.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_id` | path | `uuid` | yes |  |
+| `record_id` | path | `string` | yes |  |
 
 **Request body** (`application/json`)
 
@@ -117,7 +117,7 @@ Update a record's attributes, status, or geometry.
 | `geom` | `object | null` | no |  |
 | `status` | `string | null` | no |  |
 | `attributes` | `object | null` | no |  |
-| `event_date` | `datetime | null` | no |  |
+| `event_date` | `string | null` | no |  |
 
 **Responses**
 

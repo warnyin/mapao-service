@@ -10,7 +10,7 @@ List all record types for current tenant (RLS-filtered).
 
 **Responses**
 
-- **200** Successful Response - `array<RecordTypeResponse>`
+- **200** Successful Response - `list[RecordTypeResponse]`
 
 
 ### `POST /api/v1/record-types/`
@@ -52,7 +52,7 @@ Get record type details.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | path | `uuid` | yes |  |
+| `record_type_id` | path | `string` | yes |  |
 
 **Responses**
 
@@ -72,7 +72,7 @@ Update a record type (admin only).
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | path | `uuid` | yes |  |
+| `record_type_id` | path | `string` | yes |  |
 
 **Request body** (`application/json`)
 
@@ -105,11 +105,11 @@ List all schema versions for a record type.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | path | `uuid` | yes |  |
+| `record_type_id` | path | `string` | yes |  |
 
 **Responses**
 
-- **200** Successful Response - `array<RecordSchemaResponse>`
+- **200** Successful Response - `list[RecordSchemaResponse]`
 - **422** Validation Error - `HTTPValidationError`
 
 
@@ -130,13 +130,13 @@ informational — the new version is always created.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | path | `uuid` | yes |  |
+| `record_type_id` | path | `string` | yes |  |
 
 **Request body** (`application/json`)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `record_type_id` | `uuid` | yes |  |
+| `record_type_id` | `string` | yes |  |
 | `json_schema` | `object` | yes | JSON Schema spec for validation |
 | `ui_schema` | `object` | no | UI rendering hints |
 
@@ -158,7 +158,7 @@ Get the current (latest) schema for a record type — used by Frontend for auto-
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | path | `uuid` | yes |  |
+| `record_type_id` | path | `string` | yes |  |
 
 **Responses**
 

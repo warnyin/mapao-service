@@ -48,7 +48,9 @@ Check if a new schema is backward compatible with the current one.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | path | `uuid` | yes |  |
+| `record_type_id` | path | `string` | yes |  |
+
+**Request body** (`application/json`)
 
 **Responses**
 
