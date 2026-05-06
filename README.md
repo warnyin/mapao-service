@@ -18,9 +18,9 @@ to external integrations:
 - `metadata` — UI generation helpers (form schemas, compatibility checks)
 - `shares` — public share links (no-auth read via opaque token)
 
-Admin endpoints (tenants, users, roles, permissions, audit) are intentionally
-excluded — those are managed via the Mapao admin console, not by external
-integrators.
+This is the entire surface area: there are no admin or platform-management
+endpoints here, by design. The plugin is built for external integrators
+building independent clients on top of Mapao as a backend-as-a-service.
 
 ## Base URL
 

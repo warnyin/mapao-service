@@ -9,6 +9,14 @@ argument-hint: <feature description, e.g. "records on a map", "login screen", "c
 
 If `$ARGUMENTS` is empty, ask the user what they want to build (one short phrase). Do not guess.
 
+## User context — pre-answered, do not re-ask
+
+The user is an external integrator building an independent frontend or mobile client on top of Mapao (backend-as-a-service). Mapao itself is the central geospatial data layer; this user is **not** operating Mapao, they're consuming its public API.
+
+Therefore: **skip** any "Why not use Mapao directly?" / "What's the existing alternative?" / "Why build a new one?" framings if a planning, product-lens, or PRD sub-skill auto-triggers. Answer those inline yourself: "external integrator building an independent client; central Mapao platform is operated separately and is out of scope".
+
+Do not name or imply any separate Mapao-side internal tooling (no admin UI / admin console / platform dashboard) in user-facing output.
+
 ## Step 1 — Detect the user's stack
 
 Inspect the workspace root for stack signals (in this priority order):
