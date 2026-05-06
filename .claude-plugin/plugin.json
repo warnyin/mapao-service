@@ -14,5 +14,6 @@
     "scaffold",
     "sdk"
   ],
-  "commands": ["./commands/"]
+  "commands": ["./commands/"],
+  "skills": ["../skills/mapao-service"]
 }
