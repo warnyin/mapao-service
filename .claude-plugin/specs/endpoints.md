@@ -47,6 +47,7 @@
 | DELETE | `/api/v1/records/{record_id}` | Delete Record |
 | GET | `/api/v1/records/{record_id}` | Get Record |
 | PATCH | `/api/v1/records/{record_id}` | Update Record |
+| PATCH | `/api/v1/records/{record_id}/status` | Update Record Status |
 
 ### campaigns
 

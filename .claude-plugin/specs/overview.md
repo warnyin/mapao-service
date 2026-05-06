@@ -36,4 +36,4 @@ integrations is grouped into the following resources:
   user's session - clients do not pass a tenant id explicitly.
 - Cross-tenant access is admin-only and is intentionally excluded from this plugin.
 
-_Generated from FastAPI app version `0.1.0`._
+_Generated from FastAPI app version `0.6.0`._
