@@ -1,0 +1,45 @@
+name: Sync skill specs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.claude-plugin/specs/**'
+      - '.github/workflows/sync-skill-specs.yml'
+  pull_request:
+    paths:
+      - '.claude-plugin/specs/**'
+      - 'skills/mapao-service/specs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mirror plugin specs into skill specs
+        run: |
+          mkdir -p skills/mapao-service/specs
+          rsync -a --delete .claude-plugin/specs/ skills/mapao-service/specs/
+
+      - name: Detect drift on pull_request
+        if: github.event_name == 'pull_request'
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::skills/mapao-service/specs/ is out of sync with .claude-plugin/specs/."
+            echo "Run the following locally and commit:"
+            echo "  rsync -a --delete .claude-plugin/specs/ skills/mapao-service/specs/"
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Auto-commit synced specs on push
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: sync skill specs from plugin specs'
+          file_pattern: 'skills/mapao-service/specs/**'
