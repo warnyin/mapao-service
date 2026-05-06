@@ -73,11 +73,17 @@ Claude: [reads .claude-plugin/specs/records.md + record-types.md + auth.md]
 
 ## How the plugin stays accurate
 
-Each spec file under `.claude-plugin/specs/` is generated from the live
-FastAPI app via `app.openapi()` (the source script lives in the main Mapao
-repository at `backend/scripts/export_public_api_spec.py`). A GitHub Action
-regenerates the snapshot whenever a router or schema changes upstream and
-mirrors it into this repository.
+Spec files under `.claude-plugin/specs/` and `skills/mapao-service/specs/`
+are kept in sync automatically: a workflow in this repo
+(`.github/workflows/sync-skill-specs.yml`) mirrors any change in the plugin
+specs into the skill specs on every push to `main`, and fails PRs that
+introduce drift.
+
+Spec content itself is currently **maintained manually** against the live
+FastAPI app. An automated regeneration pipeline (export script in the main
+Mapao backend + cross-repo push to `.claude-plugin/specs/`) is planned;
+until it lands, treat each release of this repo as a point-in-time
+snapshot of `https://mapao-api.warnyin.com/api/v1`.
 
 ## License
 
