@@ -1,0 +1,18 @@
+{
+  "name": "mapao-service",
+  "version": "0.1.0",
+  "description": "Claude Code plugin for consuming the public Mapao API. Loads endpoint catalog, schemas, auth flow, and scaffolds frontend/mobile clients without needing to read OpenAPI/Swagger.",
+  "author": {
+    "name": "Mapao"
+  },
+  "repository": "https://github.com/warnyin/mapao",
+  "license": "MIT",
+  "keywords": [
+    "mapao",
+    "geospatial",
+    "api-client",
+    "scaffold",
+    "sdk"
+  ],
+  "commands": ["./commands/"]
+}
