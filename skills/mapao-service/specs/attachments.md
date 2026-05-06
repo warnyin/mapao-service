@@ -12,7 +12,7 @@ Remove the attachment from MinIO and the DB.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `attachment_id` | path | `uuid` | yes |  |
+| `attachment_id` | path | `string` | yes |  |
 
 **Responses**
 
@@ -32,7 +32,7 @@ Return a presigned download URL for a stored attachment.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `attachment_id` | path | `uuid` | yes |  |
+| `attachment_id` | path | `string` | yes |  |
 
 **Responses**
 
@@ -52,9 +52,11 @@ Upload a file and attach it to a record.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_id` | path | `uuid` | yes |  |
+| `record_id` | path | `string` | yes |  |
 
-**Request body:** `multipart/form-data` (file upload)
+**Request body** (`multipart/form-data`)
+
+`Body_upload_attachment_api_v1_records__record_id__attachments_post`
 
 **Responses**
 
