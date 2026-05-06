@@ -109,6 +109,7 @@ Update a record's attributes, status, or geometry.
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
 | `record_id` | path | `string` | yes |  |
+| `upgrade_schema` | query | `boolean` | no | When true, validate attributes against the *current* schema version and re-pin the record to it. When false (default), validate against the schema version this record was last saved under — keeps old records editable after a breaking schema change. |
 
 **Request body** (`application/json`)
 
@@ -118,6 +119,42 @@ Update a record's attributes, status, or geometry.
 | `status` | `string | null` | no |  |
 | `attributes` | `object | null` | no |  |
 | `event_date` | `string | null` | no |  |
+
+**Responses**
+
+- **200** Successful Response - `RecordResponse`
+- **422** Validation Error - `HTTPValidationError`
+
+
+### `PATCH /api/v1/records/{record_id}/status`
+
+_Update Record Status_
+
+Status-only update for moderators / triage workflows.
+
+Distinct from PATCH /records/{id}:
+  - gated on ``records:update_status`` permission (held by ``moderator``,
+    ``editor``, ``tenant_admin``)
+  - body accepts only ``status`` and optional ``reason``
+  - bypasses ownership: moderators may act on any record in their tenant
+  - ``reason`` is captured in the audit-log changes payload
+
+Members / viewers are not granted the permission and will 403.
+
+**Auth:** required (cookie or Bearer)
+
+**Parameters**
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `record_id` | path | `string` | yes |  |
+
+**Request body** (`application/json`)
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `status` | `string` | yes |  |
+| `reason` | `string | null` | no |  |
 
 **Responses**
 
