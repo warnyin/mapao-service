@@ -44,6 +44,8 @@
 | --- | --- | --- |
 | GET | `/api/v1/records/` | List Records |
 | POST | `/api/v1/records/` | Create Record |
+| GET | `/api/v1/records/clusters` | Record Clusters |
+| POST | `/api/v1/records/intersects` | Records Intersecting |
 | DELETE | `/api/v1/records/{record_id}` | Delete Record |
 | GET | `/api/v1/records/{record_id}` | Get Record |
 | PATCH | `/api/v1/records/{record_id}` | Update Record |
