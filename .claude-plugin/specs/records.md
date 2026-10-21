@@ -56,6 +56,61 @@ Create a new record with optional GeoJSON geometry and JSONB attributes.
 - **422** Validation Error - `HTTPValidationError`
 
 
+### `GET /api/v1/records/clusters`
+
+_Record Clusters_
+
+DBSCAN clusters of records inside a bbox (tenant-scoped via RLS).
+
+Like GET /records/, every status is included unless ``status`` is given.
+At most 50000 newest records are clustered; at most 1000 clusters returned.
+
+**Auth:** required (cookie or Bearer)
+
+**Parameters**
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `min_lng` | query | `number` | yes |  |
+| `min_lat` | query | `number` | yes |  |
+| `max_lng` | query | `number` | yes |  |
+| `max_lat` | query | `number` | yes |  |
+| `eps_m` | query | `number` | no | Cluster distance, meters (eps_m / 111000 degrees) |
+| `record_type_id` | query | `string | null` | no |  |
+| `status` | query | `string | null` | no |  |
+
+**Responses**
+
+- **200** Successful Response - `ClusterResponse`
+- **422** Validation Error - `HTTPValidationError`
+
+
+### `POST /api/v1/records/intersects`
+
+_Records Intersecting_
+
+Records whose geometry intersects the given GeoJSON geometry.
+
+Like GET /records/, every status is included unless ``status`` is given.
+``total_count`` is the number returned; ``truncated`` means ``limit`` was hit.
+
+**Auth:** required (cookie or Bearer)
+
+**Request body** (`application/json`)
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `geometry` | `object` | yes |  |
+| `record_type_id` | `string | null` | no |  |
+| `status` | `string | null` | no |  |
+| `limit` | `integer` | no |  |
+
+**Responses**
+
+- **200** Successful Response - `IntersectsResponse`
+- **422** Validation Error - `HTTPValidationError`
+
+
 ### `DELETE /api/v1/records/{record_id}`
 
 _Delete Record_
