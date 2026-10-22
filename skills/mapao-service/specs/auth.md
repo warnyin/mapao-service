@@ -29,6 +29,27 @@ Returns a token pair so the UI can log the user in directly.
 - **422** Validation Error - `HTTPValidationError`
 
 
+### `POST /api/v1/auth/change-password`
+
+_Change Password_
+
+Change the caller's own password; revokes every existing session.
+
+**Auth:** required (cookie or Bearer)
+
+**Request body** (`application/json`)
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `current_password` | `string` | yes |  |
+| `new_password` | `string` | yes |  |
+
+**Responses**
+
+- **200** Successful Response - `GenericMessageResponse`
+- **422** Validation Error - `HTTPValidationError`
+
+
 ### `GET /api/v1/auth/external/{tenant_slug}/{provider_slug}/authorize`
 
 _Authorize External Login_
