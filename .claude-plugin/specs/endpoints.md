@@ -5,6 +5,7 @@
 | Method | Path | Purpose |
 | --- | --- | --- |
 | POST | `/api/v1/auth/accept-invite` | Accept Invite |
+| POST | `/api/v1/auth/change-password` | Change Password |
 | GET | `/api/v1/auth/external/{tenant_slug}/{provider_slug}/authorize` | Authorize External Login |
 | GET | `/api/v1/auth/external/{tenant_slug}/{provider_slug}/callback` | External Auth Callback |
 | POST | `/api/v1/auth/forgot-password` | Forgot Password |
