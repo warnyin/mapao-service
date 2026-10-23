@@ -36,6 +36,9 @@ _Create Record_
 
 Create a new record with optional GeoJSON geometry and JSONB attributes.
 
+``Idempotency-Key`` makes retries create at most one record: the same key and body
+within 24 h replays the stored 201 (``Idempotent-Replayed: true``).
+
 **Auth:** required (cookie or Bearer)
 
 **Request body** (`application/json`)
@@ -115,7 +118,7 @@ Like GET /records/, every status is included unless ``status`` is given.
 
 _Delete Record_
 
-Soft-delete a record by setting status to 'deleted'.
+Soft-delete a record by setting status to 'deleted' (honours ``If-Match``).
 
 **Auth:** required (cookie or Bearer)
 
@@ -156,6 +159,9 @@ Get a single record as GeoJSON Feature.
 _Update Record_
 
 Update a record's attributes, status, or geometry.
+
+Optional ``If-Match`` (``"n"``, a comma list of up to 20, or ``*``) makes the update
+conditional on the current ``version``; a mismatch is 412 ``PRECONDITION_FAILED``.
 
 **Auth:** required (cookie or Bearer)
 
