@@ -53,6 +53,7 @@ within 24 h replays the stored 201 (``Idempotent-Replayed: true``).
 | `attributes` | `object` | no | Dynamic JSONB data |
 | `external_ref` | `string | null` | no |  |
 | `event_date` | `string | null` | no |  |
+| `location` | `LocationEvidence | null` | no |  |
 
 **Responses**
 

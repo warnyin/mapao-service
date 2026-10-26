@@ -86,6 +86,7 @@ Update a record type (admin only).
 | `is_active` | `boolean | null` | no |  |
 | `sort_order` | `integer | null` | no |  |
 | `visibility` | `string | null` | no |  |
+| `trust_config` | `TrustConfig | null` | no |  |
 
 **Responses**
 
