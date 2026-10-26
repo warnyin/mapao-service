@@ -9,6 +9,8 @@ integrations is grouped into the following resources:
 - **record-types** - Record Types
 - **records** - Records
 - **boundaries** - Boundaries (Thai admin areas, H3)
+- **location** - Location trust (GPS evidence, assess)
+- **tiles** - Vector tiles (MVT)
 - **campaigns** - Campaigns
 - **attachments** - Attachments
 - **metadata** - Metadata (UI Generation)
