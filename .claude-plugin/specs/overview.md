@@ -8,6 +8,7 @@ integrations is grouped into the following resources:
 - **me** - Me (PDPA self-service)
 - **record-types** - Record Types
 - **records** - Records
+- **boundaries** - Boundaries (Thai admin areas, H3)
 - **campaigns** - Campaigns
 - **attachments** - Attachments
 - **metadata** - Metadata (UI Generation)

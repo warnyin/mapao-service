@@ -52,6 +52,14 @@
 | PATCH | `/api/v1/records/{record_id}` | Update Record |
 | PATCH | `/api/v1/records/{record_id}/status` | Update Record Status |
 
+### boundaries
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| GET | `/api/v1/boundaries/datasets/active` | Active Dataset |
+| GET | `/api/v1/boundaries/resolve` | Resolve Point |
+| GET | `/api/v1/boundaries/{pcode}` | Get Boundary |
+
 ### campaigns
 
 | Method | Path | Purpose |
