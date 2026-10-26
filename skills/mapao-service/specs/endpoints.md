@@ -60,6 +60,20 @@
 | GET | `/api/v1/boundaries/resolve` | Resolve Point |
 | GET | `/api/v1/boundaries/{pcode}` | Get Boundary |
 
+### location
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| POST | `/api/v1/location/actors/erase` | Erase Actor |
+| POST | `/api/v1/location/assess` | Assess |
+
+### tiles
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| GET | `/api/v1/tiles/boundaries/{level}/{z}/{x}/{y}.mvt` | Boundaries Tile |
+| GET | `/api/v1/tiles/records/{z}/{x}/{y}.mvt` | Records Tile |
+
 ### campaigns
 
 | Method | Path | Purpose |
