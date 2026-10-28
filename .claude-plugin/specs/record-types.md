@@ -6,11 +6,28 @@ _List Record Types_
 
 List all record types for current tenant (RLS-filtered).
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Responses**
 
 - **200** Successful Response - `list[RecordTypeResponse]`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `icon` | `string \| null` | yes |  |
+| `color` | `string \| null` | yes |  |
+| `default_map_config` | `object` | yes |  |
+| `is_active` | `boolean` | yes |  |
+| `sort_order` | `integer` | yes |  |
+| `visibility` | `string` | yes |  |
+| `trust_config` | `object \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
 
 
 ### `POST /api/v1/record-types/`
@@ -19,7 +36,7 @@ _Create Record Type_
 
 Create a new record type (admin only).
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Request body** (`application/json`)
 
@@ -27,9 +44,9 @@ Create a new record type (admin only).
 | --- | --- | --- | --- |
 | `name` | `string` | yes |  |
 | `slug` | `string` | yes |  |
-| `description` | `string | null` | no |  |
-| `icon` | `string | null` | no |  |
-| `color` | `string | null` | no |  |
+| `description` | `string \| null` | no |  |
+| `icon` | `string \| null` | no |  |
+| `color` | `string \| null` | no |  |
 | `default_map_config` | `object` | no |  |
 | `sort_order` | `integer` | no |  |
 | `visibility` | `string` | no | 'public' exposes the collection via the anonymous OGC API |
@@ -39,6 +56,23 @@ Create a new record type (admin only).
 - **201** Successful Response - `RecordTypeResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `icon` | `string \| null` | yes |  |
+| `color` | `string \| null` | yes |  |
+| `default_map_config` | `object` | yes |  |
+| `is_active` | `boolean` | yes |  |
+| `sort_order` | `integer` | yes |  |
+| `visibility` | `string` | yes |  |
+| `trust_config` | `object \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
+
 
 ### `GET /api/v1/record-types/{record_type_id}`
 
@@ -46,7 +80,7 @@ _Get Record Type_
 
 Get record type details.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -59,6 +93,23 @@ Get record type details.
 - **200** Successful Response - `RecordTypeResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `icon` | `string \| null` | yes |  |
+| `color` | `string \| null` | yes |  |
+| `default_map_config` | `object` | yes |  |
+| `is_active` | `boolean` | yes |  |
+| `sort_order` | `integer` | yes |  |
+| `visibility` | `string` | yes |  |
+| `trust_config` | `object \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
+
 
 ### `PATCH /api/v1/record-types/{record_type_id}`
 
@@ -66,7 +117,7 @@ _Update Record Type_
 
 Update a record type (admin only).
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -78,20 +129,37 @@ Update a record type (admin only).
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `name` | `string | null` | no |  |
-| `description` | `string | null` | no |  |
-| `icon` | `string | null` | no |  |
-| `color` | `string | null` | no |  |
-| `default_map_config` | `object | null` | no |  |
-| `is_active` | `boolean | null` | no |  |
-| `sort_order` | `integer | null` | no |  |
-| `visibility` | `string | null` | no |  |
-| `trust_config` | `TrustConfig | null` | no |  |
+| `name` | `string \| null` | no |  |
+| `description` | `string \| null` | no |  |
+| `icon` | `string \| null` | no |  |
+| `color` | `string \| null` | no |  |
+| `default_map_config` | `object \| null` | no |  |
+| `is_active` | `boolean \| null` | no |  |
+| `sort_order` | `integer \| null` | no |  |
+| `visibility` | `string \| null` | no |  |
+| `trust_config` | `TrustConfig \| null` | no |  |
 
 **Responses**
 
 - **200** Successful Response - `RecordTypeResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `icon` | `string \| null` | yes |  |
+| `color` | `string \| null` | yes |  |
+| `default_map_config` | `object` | yes |  |
+| `is_active` | `boolean` | yes |  |
+| `sort_order` | `integer` | yes |  |
+| `visibility` | `string` | yes |  |
+| `trust_config` | `object \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
 
 
 ### `GET /api/v1/record-types/{record_type_id}/schemas`
@@ -100,7 +168,7 @@ _List Schemas_
 
 List all schema versions for a record type.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -112,6 +180,17 @@ List all schema versions for a record type.
 
 - **200** Successful Response - `list[RecordSchemaResponse]`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `record_type_id` | `string` | yes |  |
+| `version` | `integer` | yes |  |
+| `json_schema` | `object` | yes |  |
+| `ui_schema` | `object` | yes |  |
+| `is_current` | `boolean` | yes |  |
+| `created_by` | `string \| null` | yes |  |
+| `created_at` | `string` | yes |  |
 
 
 ### `POST /api/v1/record-types/{record_type_id}/schemas`
@@ -125,7 +204,7 @@ operator can spot breaking changes (removed fields, type changes,
 new required keys) before relying on the new version. Warnings are
 informational — the new version is always created.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -146,6 +225,18 @@ informational — the new version is always created.
 - **201** Successful Response - `RecordSchemaCreateResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `record_type_id` | `string` | yes |  |
+| `version` | `integer` | yes |  |
+| `json_schema` | `object` | yes |  |
+| `ui_schema` | `object` | yes |  |
+| `is_current` | `boolean` | yes |  |
+| `created_by` | `string \| null` | yes |  |
+| `created_at` | `string` | yes |  |
+| `warnings` | `list[string]` | no |  |
+
 
 ### `GET /api/v1/record-types/{record_type_id}/schemas/current`
 
@@ -153,7 +244,7 @@ _Get Current Schema_
 
 Get the current (latest) schema for a record type — used by Frontend for auto-UI.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -165,4 +256,15 @@ Get the current (latest) schema for a record type — used by Frontend for auto-
 
 - **200** Successful Response - `RecordSchemaResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `record_type_id` | `string` | yes |  |
+| `version` | `integer` | yes |  |
+| `json_schema` | `object` | yes |  |
+| `ui_schema` | `object` | yes |  |
+| `is_current` | `boolean` | yes |  |
+| `created_by` | `string \| null` | yes |  |
+| `created_at` | `string` | yes |  |
 

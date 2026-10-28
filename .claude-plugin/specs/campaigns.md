@@ -10,14 +10,14 @@ Pagination is mandatory — the previous unpaged version would OOM the
 server on tenants with hundreds of campaigns. Default page_size=20,
 hard cap 100 per request.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `record_type_id` | query | `string | null` | no |  |
-| `status` | query | `string | null` | no |  |
+| `record_type_id` | query | `string \| null` | no |  |
+| `status` | query | `string \| null` | no |  |
 | `page` | query | `integer` | no | 1-indexed page number |
 | `page_size` | query | `integer` | no | Hard cap 100 prevents OOM |
 
@@ -26,6 +26,22 @@ hard cap 100 per request.
 - **200** Successful Response - `list[CampaignResponse]`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `record_type_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `start_date` | `string \| null` | yes |  |
+| `end_date` | `string \| null` | yes |  |
+| `status` | `string` | yes |  |
+| `settings` | `object` | yes |  |
+| `created_by` | `string \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
+
 
 ### `POST /api/v1/campaigns/`
 
@@ -33,7 +49,7 @@ _Create Campaign_
 
 Create a new campaign (e.g. 'ไฟป่าภาคเหนือ 2026').
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Request body** (`application/json`)
 
@@ -42,9 +58,9 @@ Create a new campaign (e.g. 'ไฟป่าภาคเหนือ 2026').
 | `record_type_id` | `string` | yes |  |
 | `name` | `string` | yes |  |
 | `slug` | `string` | yes |  |
-| `description` | `string | null` | no |  |
-| `start_date` | `string | null` | no |  |
-| `end_date` | `string | null` | no |  |
+| `description` | `string \| null` | no |  |
+| `start_date` | `string \| null` | no |  |
+| `end_date` | `string \| null` | no |  |
 | `settings` | `object` | no |  |
 
 **Responses**
@@ -52,12 +68,28 @@ Create a new campaign (e.g. 'ไฟป่าภาคเหนือ 2026').
 - **201** Successful Response - `CampaignResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `record_type_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `start_date` | `string \| null` | yes |  |
+| `end_date` | `string \| null` | yes |  |
+| `status` | `string` | yes |  |
+| `settings` | `object` | yes |  |
+| `created_by` | `string \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
+
 
 ### `GET /api/v1/campaigns/{campaign_id}`
 
 _Get Campaign_
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -70,12 +102,28 @@ _Get Campaign_
 - **200** Successful Response - `CampaignResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `record_type_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `start_date` | `string \| null` | yes |  |
+| `end_date` | `string \| null` | yes |  |
+| `status` | `string` | yes |  |
+| `settings` | `object` | yes |  |
+| `created_by` | `string \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
+
 
 ### `PATCH /api/v1/campaigns/{campaign_id}`
 
 _Update Campaign_
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -87,15 +135,31 @@ _Update Campaign_
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `name` | `string | null` | no |  |
-| `description` | `string | null` | no |  |
-| `start_date` | `string | null` | no |  |
-| `end_date` | `string | null` | no |  |
-| `status` | `string | null` | no |  |
-| `settings` | `object | null` | no |  |
+| `name` | `string \| null` | no |  |
+| `description` | `string \| null` | no |  |
+| `start_date` | `string \| null` | no |  |
+| `end_date` | `string \| null` | no |  |
+| `status` | `string \| null` | no |  |
+| `settings` | `object \| null` | no |  |
 
 **Responses**
 
 - **200** Successful Response - `CampaignResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `record_type_id` | `string` | yes |  |
+| `name` | `string` | yes |  |
+| `slug` | `string` | yes |  |
+| `description` | `string \| null` | yes |  |
+| `start_date` | `string \| null` | yes |  |
+| `end_date` | `string \| null` | yes |  |
+| `status` | `string` | yes |  |
+| `settings` | `object` | yes |  |
+| `created_by` | `string \| null` | no |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
 

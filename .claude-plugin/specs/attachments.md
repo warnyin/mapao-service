@@ -6,7 +6,7 @@ _Delete Attachment_
 
 Remove the attachment from MinIO and the DB.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -26,7 +26,7 @@ _Get Attachment Url_
 
 Return a presigned download URL for a stored attachment.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -39,6 +39,15 @@ Return a presigned download URL for a stored attachment.
 - **200** Successful Response - `AttachmentDownload`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `file_name` | `string` | yes |  |
+| `file_type` | `string \| null` | yes |  |
+| `file_size` | `integer \| null` | yes |  |
+| `url` | `string` | yes |  |
+| `expires_in_seconds` | `integer` | yes |  |
+
 
 ### `POST /api/v1/records/{record_id}/attachments`
 
@@ -46,7 +55,7 @@ _Upload Attachment_
 
 Upload a file and attach it to a record.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -62,4 +71,15 @@ Upload a file and attach it to a record.
 
 - **201** Successful Response - `AttachmentResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `record_id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `file_name` | `string` | yes |  |
+| `file_type` | `string \| null` | yes |  |
+| `storage_path` | `string` | yes |  |
+| `file_size` | `integer \| null` | yes |  |
+| `created_at` | `string` | yes |  |
 

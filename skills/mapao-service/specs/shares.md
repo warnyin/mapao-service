@@ -9,7 +9,7 @@ Issue a time-limited public share link for a record.
 Only admin/editor can share. The response is the only place the
 cleartext token appears — callers must save the URL immediately.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -22,19 +22,30 @@ cleartext token appears — callers must save the URL immediately.
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `expires_in_hours` | `integer` | no | Link validity (max 90 days) |
-| `label` | `string | null` | no | Human-readable note, e.g. 'shared with partner X' |
+| `label` | `string \| null` | no | Human-readable note, e.g. 'shared with partner X' |
 
 **Responses**
 
 - **201** Successful Response - `ShareLinkResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `record_id` | `string` | yes |  |
+| `expires_at` | `string` | yes |  |
+| `revoked_at` | `string \| null` | yes |  |
+| `view_count` | `integer` | yes |  |
+| `label` | `string \| null` | yes |  |
+| `created_at` | `string` | yes |  |
+| `url` | `string \| null` | no |  |
+
 
 ### `GET /api/v1/records/{record_id}/shares`
 
 _List Share Links_
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -47,12 +58,23 @@ _List Share Links_
 - **200** Successful Response - `list[ShareLinkResponse]`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `record_id` | `string` | yes |  |
+| `expires_at` | `string` | yes |  |
+| `revoked_at` | `string \| null` | yes |  |
+| `view_count` | `integer` | yes |  |
+| `label` | `string \| null` | yes |  |
+| `created_at` | `string` | yes |  |
+| `url` | `string \| null` | no |  |
+
 
 ### `DELETE /api/v1/shares/{share_id}`
 
 _Revoke Share Link_
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -72,7 +94,7 @@ _List Share Views_
 
 Audit log of who has viewed this share link.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -84,6 +106,12 @@ Audit log of who has viewed this share link.
 
 - **200** Successful Response - `list[ShareLinkViewResponse]`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `viewed_at` | `string` | yes |  |
+| `ip_address` | `string \| null` | yes |  |
+| `user_agent` | `string \| null` | yes |  |
 
 
 ### `GET /public/r/{token}`

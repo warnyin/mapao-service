@@ -40,6 +40,9 @@ If multiple match (e.g. monorepo), ask the user which target. If none match, ask
 Based on `$ARGUMENTS`, decide which resources to involve. Common mappings:
 
 - "records on a map" / "show flooded points" / "incidents nearby" -> `records` (geospatial query: `bbox`, `lng`+`lat`+`radius_m`), plus `record-types` for icons/colors
+- "which province/district/tambon is this point in" -> `boundaries` (resolve)
+- "check-in" / "anti-spoof" / "is this GPS real" / "claim a tambon" -> `location` (assess) + `records` (create with `location`) + `boundaries`
+- "map of claimed areas" / "boundary overlay" -> `tiles` (records + boundaries, proxied through a server that holds the key)
 - "login" / "sign in" / "auth" -> `auth`
 - "user profile" / "my account" / "delete my data" -> `me` + `auth`
 - "list campaigns" / "campaign details" -> `campaigns`
@@ -65,7 +68,7 @@ Then generate code that:
 
 - Uses the project's existing HTTP client / state management / routing conventions when present (do not introduce a new HTTP library if `dio`/`axios`/`ktor`/etc. is already in use).
 - Reads `MAPAO_API_BASE_URL` (or the project's existing config pattern) — never hard-code the host.
-- Sends credentials so the auth cookie tags along on browser/webview targets, or accepts a Bearer token on native targets.
+- Authenticates the right way for where it runs: server code sends `X-API-Key` from `MAPAO_API_KEY` (never shipped to the client); browser code calls the app's own server route or uses a read-only `pk_` key; apps with signed-in users send the auth cookie (browser/webview) or a Bearer token (native).
 - Handles 401 (re-auth), 403 (insufficient permission), 404, 422 (validation errors with `detail[]`), 429 (`Retry-After`), and 5xx (transient — retry with backoff for idempotent verbs only).
 - Includes one usage example in a comment at the top of the main generated file.
 
@@ -76,6 +79,6 @@ After writing, in your reply:
 - List files created/edited.
 - Show the one new dependency the user must install (if any).
 - Show the env var(s) the user must set (`MAPAO_API_BASE_URL` etc.).
-- Suggest a quick smoke test (a `curl` against `/api/v1/auth/login` plus one feature call).
+- Suggest a quick smoke test (a `curl -H "X-API-Key: $MAPAO_API_KEY"` against `/api/v1/record-types/` or `/api/v1/boundaries/resolve?lat=13.75&lng=100.5`, plus one feature call).
 
 Do not run tests or builds unless the user asks. Do not mock the network in generated code.

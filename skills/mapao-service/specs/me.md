@@ -17,7 +17,7 @@ PDPA / GDPR "right to erasure":
      classification), we only strip the personal-data keys
   4. revoke all refresh tokens
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Responses**
 
@@ -33,7 +33,7 @@ Return a JSON dump of every row I own in this tenant.
 Rate-limited via ``settings.rate_limit_export`` (default 5/hour) — this is
 a DB-heavy endpoint and abuse risk is high without a cap.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Responses**
 
@@ -44,18 +44,34 @@ a DB-heavy endpoint and abuse risk is high without a cap.
 
 _List My External Identities_
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Responses**
 
 - **200** Successful Response - `list[ExternalIdentityResponse]`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `provider_id` | `string` | yes |  |
+| `provider_slug` | `string` | yes |  |
+| `provider_display_name` | `string` | yes |  |
+| `user_id` | `string \| null` | yes |  |
+| `status` | `string` | yes |  |
+| `external_subject` | `string` | yes |  |
+| `external_email` | `string \| null` | yes |  |
+| `review_reason` | `string \| null` | yes |  |
+| `reviewed_at` | `string \| null` | yes |  |
+| `last_login_at` | `string \| null` | yes |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
 
 
 ### `DELETE /api/v1/me/external-identities/{identity_id}`
 
 _Unlink External Identity_
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -73,7 +89,7 @@ _Unlink External Identity_
 
 _Authorize External Identity Link_
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -85,4 +101,10 @@ _Authorize External Identity Link_
 
 - **200** Successful Response - `ExternalAuthorizeResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `authorization_url` | `string` | yes |  |
+| `state` | `string` | yes |  |
+| `mode` | `string` | yes |  |
 

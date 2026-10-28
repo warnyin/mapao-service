@@ -6,7 +6,7 @@ _Boundaries Tile_
 
 Admin boundaries of one level (layer ``boundaries``) from the active dataset.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -29,7 +29,7 @@ _Records Tile_
 
 The caller's tenant's records (layer ``records``); soft-deleted records are left out.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -38,9 +38,9 @@ The caller's tenant's records (layer ``records``); soft-deleted records are left
 | `z` | path | `integer` | yes |  |
 | `x` | path | `integer` | yes |  |
 | `y` | path | `integer` | yes |  |
-| `record_type_id` | query | `string | null` | no |  |
-| `status` | query | `string | null` | no |  |
-| `admin` | query | `string | null` | no | Admin P-code prefix |
+| `record_type_id` | query | `string \| null` | no |  |
+| `status` | query | `string \| null` | no |  |
+| `admin` | query | `string \| null` | no | Admin P-code prefix |
 
 **Responses**
 
