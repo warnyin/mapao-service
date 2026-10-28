@@ -139,6 +139,14 @@ Update a record type (admin only).
 | `visibility` | `string \| null` | no |  |
 | `trust_config` | `TrustConfig \| null` | no |  |
 
+**`TrustConfig`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `max_accuracy_m` | `number \| null` | no |  |
+| `max_speed_kmh` | `number \| null` | no |  |
+| `max_fix_age_s` | `number \| null` | no |  |
+
 **Responses**
 
 - **200** Successful Response - `RecordTypeResponse`

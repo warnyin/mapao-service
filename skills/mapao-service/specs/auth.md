@@ -216,6 +216,10 @@ should discard their access token locally on logout.
 
 **Request body** (`application/json`)
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `refresh_token` | `string` | no |  |
+
 **Responses**
 
 - **204** Successful Response

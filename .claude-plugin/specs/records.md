@@ -70,6 +70,15 @@ within 24 h replays the stored 201 (``Idempotent-Replayed: true``).
 | `event_date` | `string \| null` | no |  |
 | `location` | `LocationEvidence \| null` | no |  |
 
+**`LocationEvidence`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `accuracy_m` | `number` | yes |  |
+| `captured_at` | `string \| null` | no |  |
+| `mock_reported` | `boolean` | no |  |
+| `actor_ref` | `string \| null` | no |  |
+
 **Responses**
 
 - **201** Successful Response - `RecordResponse`
