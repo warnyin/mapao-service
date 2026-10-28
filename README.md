@@ -1,6 +1,6 @@
 # mapao-service
 
-> **Build a frontend or mobile client for the public Mapao geospatial API in minutes.**
+> **Build a frontend, mobile or server app on the public Mapao geospatial API in minutes.**
 > Just say what you want — *"show flooded points on a map"*, *"add a login screen"*,
 > *"upload a photo to a record"* — and Claude picks the right endpoints, detects your
 > stack, and writes code that uses your project's existing conventions.
@@ -17,6 +17,8 @@ session. The skill auto-detects your stack and writes real code, not boilerplate
 | You ask | What gets generated |
 | --- | --- |
 | `Show flooded points on a map of Bangkok` | Map view + `records?bbox=...` query + `record-types` for icon/color, in your stack |
+| `Tambon check-in game that rejects spoofed GPS` | Server route holding your `sk_` key: `POST /location/assess` (trust + tambon) -> your reject policy -> `POST /records/` with `Idempotency-Key`; map of claims via proxied vector tiles |
+| `Which tambon is this point in?` | `GET /boundaries/resolve` -> province / district / tambon (TH and EN names, P-codes) + H3 cell |
 | `Add a login screen` | Email/password form, login action, cookie/Bearer handling, 401 / 422 / 429 (lockout) error states |
 | `Upload a photo when I report an incident` | File picker → `POST /records/{id}/attachments` flow with progress bar + retry |
 | `Show records I created, paginated` | List view with `records?created_by_me=true&limit=20`, infinite-scroll wired to your state lib |
@@ -38,6 +40,9 @@ The full **public** API surface — everything an external integrator needs:
 - `me` — PDPA self-service (export, delete, external identity link)
 - `record-types` — record-type catalog and dynamic schemas
 - `records` — geospatial records (CRUD, bbox/proximity queries, GeoJSON)
+- `boundaries` — resolve a point to Thai province / district / tambon (+ H3)
+- `location` — GPS trust grading (spoof, low accuracy, impossible travel)
+- `tiles` — vector tiles (MVT) of records and admin boundaries
 - `campaigns` — campaign metadata
 - `attachments` — record file uploads
 - `metadata` — UI generation helpers (form schemas, compatibility checks)
@@ -54,6 +59,13 @@ Production: **`https://mapao-api.warnyin.com`**
 All endpoints below are relative to this base + `/api/v1`. Clients should
 read the host from a config/env var (`MAPAO_API_BASE_URL`) so dev/staging
 swaps stay one config change away.
+
+## Auth in one minute
+
+- **Server apps:** sign up at the console (`/console` on the Mapao web app), create an app and a secret key, put it in `MAPAO_API_KEY` and send `X-API-Key: sk_...`. Never ship `sk_` keys to a browser.
+- **Browsers:** a read-only publishable `pk_` key bound to your origins, or call your own server route.
+- **Apps with signed-in users:** `POST /api/v1/auth/login`, then the httpOnly cookie or Bearer token.
+- Agent-oriented reference, always current: `https://mapao-api.warnyin.com/llms.txt`.
 
 ## Install
 
@@ -75,7 +87,7 @@ Or as a Claude Code plugin directly:
 | Command | Purpose |
 | --- | --- |
 | `/mapao-overview` | One-screen pitch: what Mapao is, public resources, auth model |
-| `/mapao-auth` | Login flow, cookie vs Bearer, how to wire credentials in any HTTP client |
+| `/mapao-auth` | API keys (servers) vs publishable keys vs end-user login; how to wire credentials |
 | `/mapao-endpoints` | Compact catalog of every public endpoint (method + path + summary) |
 | `/mapao-spec <resource>` | Deep dive on one resource — params, request/response schema, error codes |
 | `/mapao-scaffold <feature>` | Auto-detects your stack (Flutter, Next.js, Swift, Kotlin, …) and generates client code for a use case |

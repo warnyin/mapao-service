@@ -1,10 +1,16 @@
 ---
-description: Mapao authentication flow — login, session cookie, refresh, logout, and how to wire it in any HTTP client
+description: Mapao authentication — secret API keys for servers (X-API-Key), publishable keys for browsers, and the end-user login flow (cookie / Bearer, refresh, logout)
 ---
 
 # Mapao — Auth Flow
 
-The user wants to integrate Mapao login into their app. Help them with the **exact** flow Mapao uses, not a generic OAuth template.
+The user wants to authenticate against Mapao. Help them with the **exact** model Mapao uses, not a generic OAuth template. First decide who calls Mapao:
+
+- **Their server / job / back end** (no end-user login) -> a secret API key. Create it in the console at `/console` (app -> key, narrowest scopes; shown once), keep it in the server env as `MAPAO_API_KEY`, and send `X-API-Key: sk_...` (or `Authorization: Bearer sk_...`) on every request. Never put `sk_` keys in browser code, mobile apps, bundles or commits.
+- **A browser or mobile app reading public-ish data** -> a publishable `pk_` key: read-only, bound to `allowed_origins`; it gets 403 on writes and on `/location/assess`.
+- **An app where people sign in** -> the end-user login flow below.
+
+Most apps that write data or grade GPS fixes use a server route holding the `sk_` key.
 
 ## Step 1 — Load context
 

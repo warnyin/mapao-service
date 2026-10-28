@@ -17,11 +17,11 @@ If the file is missing, tell the user the plugin install is incomplete and stop 
 Once the spec is loaded, in your reply:
 
 1. State Mapao's purpose in one sentence (universal geospatial backend with multi-tenant records, record-types, and campaigns).
-2. List the public resources available to client apps: `auth`, `records`, `record-types`, `campaigns`, `attachments`, `metadata`, `shares`, `me`.
-3. Describe the auth model in 2 sentences (httpOnly cookie issued by `/auth/login`, sent automatically with `credentials: include`-style requests).
+2. List the public resources: `auth`, `records`, `record-types`, `boundaries` (Thai province/district/tambon resolve), `location` (GPS trust / anti-spoof), `tiles` (vector tiles), `campaigns`, `attachments`, `metadata`, `shares`, `me`.
+3. Describe the auth model in 2 sentences (servers send a secret key from `/console` as `X-API-Key: sk_...`; apps with signed-in users use the httpOnly cookie or Bearer from `/auth/login`).
 4. Mention the related slash commands the user can run next:
    - `/mapao-endpoints` — list every public endpoint
-   - `/mapao-auth` — login flow + how to wire credentials in any HTTP client
+   - `/mapao-auth` — API keys vs end-user login, and how to wire credentials in any HTTP client
    - `/mapao-spec <resource>` — deep-dive a single resource (request/response shapes, errors, examples)
    - `/mapao-scaffold <feature>` — generate code in the current project for a use case
 
