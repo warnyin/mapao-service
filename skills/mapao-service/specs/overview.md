@@ -25,7 +25,11 @@ integrations is grouped into the following resources:
 
 ## Auth model
 
-- Email/password login at `POST /api/v1/auth/login`.
+- **API keys (server-to-server, preferred).** Create a secret `sk_` key in the
+  console (`/console` -> your app -> key) and send it server-side as
+  `X-API-Key: sk_...` (or `Authorization: Bearer sk_...`). Never ship it to a browser.
+- **Publishable `pk_` keys** are read-only and origin-bound; use them in browsers.
+- **User login** (after API keys): email/password at `POST /api/v1/auth/login`.
 - Server returns `{ access_token, refresh_token }` AND sets `mapao_access_token`
   as an httpOnly cookie.
 - Browsers/webviews rely on the cookie automatically (`credentials: 'include'`).
