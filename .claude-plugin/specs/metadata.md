@@ -7,7 +7,7 @@ _Get Form Metadata_
 Get form metadata for a specific record type by slug.
 Frontend ใช้ endpoint นี้สร้าง form สำหรับ record type นั้นๆ
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 
@@ -28,7 +28,7 @@ _Get All Types With Schemas_
 Get all record types with their current schemas.
 Frontend ใช้ endpoint นี้เพื่อสร้างเมนู + forms อัตโนมัติ
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Responses**
 
@@ -42,7 +42,7 @@ _Check Schema Compatibility_
 Check if a new schema is backward compatible with the current one.
 ใช้ก่อน create schema version ใหม่ เพื่อดูว่ามี breaking changes ไหม
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Parameters**
 

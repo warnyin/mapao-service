@@ -21,12 +21,18 @@ Returns a token pair so the UI can log the user in directly.
 | --- | --- | --- | --- |
 | `token` | `string` | yes |  |
 | `password` | `string` | yes |  |
-| `full_name` | `string | null` | no |  |
+| `full_name` | `string \| null` | no |  |
 
 **Responses**
 
 - **200** Successful Response - `TokenResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `access_token` | `string` | yes |  |
+| `refresh_token` | `string` | yes |  |
+| `token_type` | `string` | no |  |
 
 
 ### `POST /api/v1/auth/change-password`
@@ -35,7 +41,7 @@ _Change Password_
 
 Change the caller's own password; revokes every existing session.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Request body** (`application/json`)
 
@@ -48,6 +54,10 @@ Change the caller's own password; revokes every existing session.
 
 - **200** Successful Response - `GenericMessageResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `message` | `string` | yes |  |
 
 
 ### `GET /api/v1/auth/external/{tenant_slug}/{provider_slug}/authorize`
@@ -67,6 +77,12 @@ _Authorize External Login_
 
 - **200** Successful Response - `ExternalAuthorizeResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `authorization_url` | `string` | yes |  |
+| `state` | `string` | yes |  |
+| `mode` | `string` | yes |  |
 
 
 ### `GET /api/v1/auth/external/{tenant_slug}/{provider_slug}/callback`
@@ -110,6 +126,10 @@ addresses are registered.
 - **200** Successful Response - `GenericMessageResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `message` | `string` | yes |  |
+
 
 ### `POST /api/v1/auth/login`
 
@@ -137,6 +157,12 @@ slowapi can't see through that, but the email side of the key can.
 - **200** Successful Response - `TokenResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `access_token` | `string` | yes |  |
+| `refresh_token` | `string` | yes |  |
+| `token_type` | `string` | no |  |
+
 
 ### `GET /api/v1/auth/login-options/{tenant_slug}`
 
@@ -154,6 +180,21 @@ _Get Login Options_
 
 - **200** Successful Response - `LoginOptionsResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `tenant_slug` | `string` | yes |  |
+| `local_login_enabled` | `boolean` | yes |  |
+| `providers` | `list[LoginOptionProvider]` | yes |  |
+
+**`LoginOptionProvider`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `slug` | `string` | yes |  |
+| `provider_type` | `string` | yes |  |
+| `display_name` | `string` | yes |  |
+| `authorize_url` | `string \| null` | no |  |
 
 
 ### `POST /api/v1/auth/logout`
@@ -175,6 +216,10 @@ should discard their access token locally on logout.
 
 **Request body** (`application/json`)
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `refresh_token` | `string` | no |  |
+
 **Responses**
 
 - **204** Successful Response
@@ -187,11 +232,29 @@ _Get Current User Profile_
 
 Get current user profile from JWT.
 
-**Auth:** required (cookie or Bearer)
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Responses**
 
 - **200** Successful Response - `AuthMeResponse`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `email` | `string` | yes |  |
+| `full_name` | `string \| null` | yes |  |
+| `role` | `string` | yes |  |
+| `role_slugs` | `list[string]` | yes |  |
+| `permissions` | `list[string]` | yes |  |
+| `is_superuser` | `boolean` | yes |  |
+| `preferences` | `object` | yes |  |
+| `is_active` | `boolean` | yes |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
+| `email_verified` | `boolean` | no |  |
+| `tenant_name` | `string \| null` | no |  |
+| `tenant_slug` | `string \| null` | no |  |
 
 
 ### `POST /api/v1/auth/refresh`
@@ -217,6 +280,12 @@ the caller gets 401.
 - **200** Successful Response - `TokenResponse`
 - **422** Validation Error - `HTTPValidationError`
 
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `access_token` | `string` | yes |  |
+| `refresh_token` | `string` | yes |  |
+| `token_type` | `string` | no |  |
+
 
 ### `POST /api/v1/auth/register`
 
@@ -239,13 +308,25 @@ invites real users via ``/users/invite-link``.
 | --- | --- | --- | --- |
 | `email` | `string` | yes |  |
 | `password` | `string` | yes |  |
-| `full_name` | `string | null` | no |  |
+| `full_name` | `string \| null` | no |  |
 | `tenant_slug` | `string` | yes |  |
 
 **Responses**
 
 - **201** Successful Response - `UserResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | yes |  |
+| `tenant_id` | `string` | yes |  |
+| `email` | `string` | yes |  |
+| `full_name` | `string \| null` | yes |  |
+| `role` | `string` | yes |  |
+| `preferences` | `object` | yes |  |
+| `is_active` | `boolean` | yes |  |
+| `created_at` | `string` | yes |  |
+| `updated_at` | `string` | yes |  |
 
 
 ### `POST /api/v1/auth/reset-password`
@@ -270,4 +351,8 @@ outstanding access / refresh token for that user is revoked.
 
 - **200** Successful Response - `GenericMessageResponse`
 - **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `message` | `string` | yes |  |
 
