@@ -93,8 +93,9 @@ _Public View Record_
 Anonymous read-only view of a record via share link.
 
 Validates the token, logs the view (IP/UA/referer), and returns a
-minimal GeoJSON Feature. No tenant context is set on this session —
-the share_link row itself carries the tenant_id we enforce below.
+minimal GeoJSON Feature. The link is found by ``resolve_share_link()``
+(record_share_links is RLS-scoped and no tenant is known yet); everything
+after that runs as the link's own tenant.
 
 **Auth:** public
 
