@@ -7,6 +7,8 @@ _Erase Actor_
 Forget an actor: clear its keyed hash on every record of this tenant (RLS-scoped),
 so its travel history is no longer linked. Records themselves are kept.
 
+Secret (`sk_`) keys with `location:erase` only; publishable keys get 403.
+
 **Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
 **Request body** (`application/json`)
@@ -30,6 +32,8 @@ so its travel history is no longer linked. Records themselves are kept.
 _Assess_
 
 Grade a fix exactly as record creation would; stores nothing.
+
+Secret (`sk_`) keys only; publishable keys get 403. Sending `actor_ref` also needs `records:create`.
 
 **Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
 
