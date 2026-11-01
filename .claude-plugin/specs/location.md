@@ -57,14 +57,14 @@ Secret (`sk_`) keys only; publishable keys get 403. Sending `actor_ref` also nee
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `trust` | `Trust` | yes |  |
-| `admin` | `object` | yes |  |
+| `admin` | `object` | yes | Same object as GET /api/v1/boundaries/resolve: adm0..adm3 (each {pcode, name_th, name_en} or null), h3, h3_res, dataset_version, attribution |
 
 **`Trust`**
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `flags` | `list[string]` | yes |  |
-| `score` | `integer` | yes |  |
+| `flags` | `list[string]` | yes | Raised flags, e.g. LOW_ACCURACY, MOCK_REPORTED, IMPOSSIBLE_TRAVEL |
+| `score` | `integer` | yes | Sum of the raised flags' weights, capped at 100: 0 = no flag, higher = more suspicious |
 | `version` | `string` | yes |  |
-| `checks` | `object` | yes |  |
+| `checks` | `object` | yes | One entry per check: accuracy, mock, stale, future, boundary, travel |
 

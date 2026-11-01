@@ -34,7 +34,7 @@ Supports: type filter, campaign filter, bbox, proximity, JSONB attribute filter.
 | --- | --- | --- | --- |
 | `type` | `string` | no |  |
 | `features` | `list[GeoJSONFeature]` | yes |  |
-| `total_count` | `integer \| null` | no |  |
+| `total_count` | `integer \| null` | no | Records matching the filters across all pages (not the length of this page). |
 
 **`GeoJSONFeature`**
 
@@ -119,10 +119,10 @@ At most 50000 newest records are clustered; at most 1000 clusters returned.
 
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
-| `min_lng` | query | `number` | yes |  |
-| `min_lat` | query | `number` | yes |  |
-| `max_lng` | query | `number` | yes |  |
-| `max_lat` | query | `number` | yes |  |
+| `min_lng` | query | `number` | yes | West edge (longitude) |
+| `min_lat` | query | `number` | yes | South edge (latitude) |
+| `max_lng` | query | `number` | yes | East edge; at least min_lng |
+| `max_lat` | query | `number` | yes | North edge; at least min_lat |
 | `eps_m` | query | `number` | no | Cluster distance, meters (eps_m / 111000 degrees) |
 | `record_type_id` | query | `string \| null` | no |  |
 | `status` | query | `string \| null` | no |  |
@@ -174,7 +174,7 @@ Like GET /records/, every status is included unless ``status`` is given.
 | --- | --- | --- | --- |
 | `type` | `string` | no |  |
 | `features` | `list[GeoJSONFeature]` | yes |  |
-| `total_count` | `integer \| null` | no |  |
+| `total_count` | `integer \| null` | no | Records matching the filters across all pages (not the length of this page). |
 | `truncated` | `boolean` | yes | True when `limit` features were returned (more may match) |
 
 **`GeoJSONFeature`**
