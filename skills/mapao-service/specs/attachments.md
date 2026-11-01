@@ -79,7 +79,6 @@ Upload a file and attach it to a record.
 | `tenant_id` | `string` | yes |  |
 | `file_name` | `string` | yes |  |
 | `file_type` | `string \| null` | yes |  |
-| `storage_path` | `string` | yes |  |
 | `file_size` | `integer \| null` | yes |  |
 | `created_at` | `string` | yes |  |
 
