@@ -58,6 +58,7 @@
 | --- | --- | --- |
 | GET | `/api/v1/boundaries/datasets/active` | Active Dataset |
 | GET | `/api/v1/boundaries/resolve` | Resolve Point |
+| GET | `/api/v1/boundaries/search` | Search Boundaries |
 | GET | `/api/v1/boundaries/{pcode}` | Get Boundary |
 
 ### location

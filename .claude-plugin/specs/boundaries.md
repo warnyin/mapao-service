@@ -62,6 +62,57 @@ and its H3 cell. Levels are null outside every boundary or when no dataset is ac
 | `name_en` | `string` | yes |  |
 
 
+### `GET /api/v1/boundaries/search`
+
+_Search Boundaries_
+
+Provinces, districts and tambons of the active dataset whose name contains ``q``, best first
+(exact, prefix, contains, then fuzzy for Latin text), each with its parent chain. For typeahead:
+debounce at least 250 ms and send from 2 characters; a 304 (If-None-Match) costs no quota.
+
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
+
+**Parameters**
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `q` | query | `string` | yes | Thai or English name; the admin word (เขต, Amphoe ...), spaces and case are ignored |
+| `level` | query | `integer \| null` | no | 1 province, 2 district, 3 tambon |
+| `within` | query | `string \| null` | no | Only units under this P-code, e.g. TH10 |
+| `limit` | query | `integer` | no |  |
+
+**Responses**
+
+- **200** Successful Response - `SearchResponse`
+- **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `items` | `list[SearchItem]` | yes |  |
+| `dataset_version` | `string` | yes |  |
+| `attribution` | `string` | yes |  |
+
+**`SearchItem`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `pcode` | `string` | yes |  |
+| `name_th` | `string` | yes |  |
+| `name_en` | `string` | yes |  |
+| `level` | `integer` | yes |  |
+| `parents` | `list[AdminUnit]` | yes |  |
+| `match` | `string` | yes |  |
+
+**`AdminUnit`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `pcode` | `string` | yes |  |
+| `name_th` | `string` | yes |  |
+| `name_en` | `string` | yes |  |
+| `level` | `integer` | yes |  |
+
+
 ### `GET /api/v1/boundaries/{pcode}`
 
 _Get Boundary_
