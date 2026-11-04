@@ -1,5 +1,74 @@
 # Mapao - Boundaries (Thai admin areas, H3)
 
+### `POST /api/v1/address/parse`
+
+_Parse Address_
+
+Admin-unit candidates for a Thai address, best first. `admin` is set only when `confidence` ≥ 0.6; below that,
+show `candidates` and let the user choose. The postcode is extracted into `parts` but never used for matching.
+
+**Auth:** API key (`X-API-Key: sk_…` or `Authorization: Bearer sk_…`) or a user session
+
+**Request body** (`application/json`)
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `text` | `string` | yes | One address line, Thai or English (up to 300 characters) |
+| `within` | `string \| null` | no | Only units under this P-code, e.g. TH10 |
+| `limit` | `integer` | no | Candidates to return |
+
+**Responses**
+
+- **200** Successful Response - `ParseResponse`
+- **422** Validation Error - `HTTPValidationError`
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `admin` | `Admin \| null` | yes |  |
+| `candidates` | `list[Candidate]` | yes |  |
+| `parts` | `object` | yes |  |
+| `residual` | `string` | yes |  |
+| `confidence` | `number` | yes |  |
+| `dataset_version` | `string` | yes |  |
+| `attribution` | `string` | yes |  |
+
+**`Admin`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `adm1` | `Unit \| null` | yes |  |
+| `adm2` | `Unit \| null` | yes |  |
+| `adm3` | `Unit \| null` | yes |  |
+
+**`Candidate`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `adm1` | `Unit \| null` | yes |  |
+| `adm2` | `Unit \| null` | yes |  |
+| `adm3` | `Unit \| null` | yes |  |
+| `score` | `number` | yes |  |
+| `matched` | `list[Matched]` | yes |  |
+
+**`Unit`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `pcode` | `string` | yes |  |
+| `name_th` | `string` | yes |  |
+| `name_en` | `string` | yes |  |
+
+**`Matched`**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `level` | `integer` | yes |  |
+| `span` | `array \| null` | yes |  |
+| `text` | `string \| null` | yes |  |
+| `inferred` | `boolean` | yes |  |
+| `fuzzy` | `boolean` | yes |  |
+
+
 ### `GET /api/v1/boundaries/datasets/active`
 
 _Active Dataset_

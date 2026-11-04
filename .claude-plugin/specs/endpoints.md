@@ -56,6 +56,7 @@
 
 | Method | Path | Purpose |
 | --- | --- | --- |
+| POST | `/api/v1/address/parse` | Parse Address |
 | GET | `/api/v1/boundaries/datasets/active` | Active Dataset |
 | GET | `/api/v1/boundaries/resolve` | Resolve Point |
 | GET | `/api/v1/boundaries/search` | Search Boundaries |
