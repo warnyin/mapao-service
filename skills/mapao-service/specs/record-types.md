@@ -21,10 +21,10 @@ List all record types for current tenant (RLS-filtered).
 | `description` | `string \| null` | yes |  |
 | `icon` | `string \| null` | yes |  |
 | `color` | `string \| null` | yes |  |
-| `default_map_config` | `object` | yes |  |
+| `default_map_config` | `object` | yes | Free-form map defaults kept for the console; the API does not use it |
 | `is_active` | `boolean` | yes |  |
 | `sort_order` | `integer` | yes |  |
-| `visibility` | `string` | yes |  |
+| `visibility` | `string` | yes | `private` (default), or `public`: anyone can read the collection's records with no key at /ogc |
 | `trust_config` | `object \| null` | no |  |
 | `created_at` | `string` | yes |  |
 | `updated_at` | `string` | yes |  |
@@ -65,10 +65,10 @@ Create a new record type (admin only).
 | `description` | `string \| null` | yes |  |
 | `icon` | `string \| null` | yes |  |
 | `color` | `string \| null` | yes |  |
-| `default_map_config` | `object` | yes |  |
+| `default_map_config` | `object` | yes | Free-form map defaults kept for the console; the API does not use it |
 | `is_active` | `boolean` | yes |  |
 | `sort_order` | `integer` | yes |  |
-| `visibility` | `string` | yes |  |
+| `visibility` | `string` | yes | `private` (default), or `public`: anyone can read the collection's records with no key at /ogc |
 | `trust_config` | `object \| null` | no |  |
 | `created_at` | `string` | yes |  |
 | `updated_at` | `string` | yes |  |
@@ -102,10 +102,10 @@ Get record type details.
 | `description` | `string \| null` | yes |  |
 | `icon` | `string \| null` | yes |  |
 | `color` | `string \| null` | yes |  |
-| `default_map_config` | `object` | yes |  |
+| `default_map_config` | `object` | yes | Free-form map defaults kept for the console; the API does not use it |
 | `is_active` | `boolean` | yes |  |
 | `sort_order` | `integer` | yes |  |
-| `visibility` | `string` | yes |  |
+| `visibility` | `string` | yes | `private` (default), or `public`: anyone can read the collection's records with no key at /ogc |
 | `trust_config` | `object \| null` | no |  |
 | `created_at` | `string` | yes |  |
 | `updated_at` | `string` | yes |  |
@@ -161,10 +161,10 @@ Update a record type (admin only).
 | `description` | `string \| null` | yes |  |
 | `icon` | `string \| null` | yes |  |
 | `color` | `string \| null` | yes |  |
-| `default_map_config` | `object` | yes |  |
+| `default_map_config` | `object` | yes | Free-form map defaults kept for the console; the API does not use it |
 | `is_active` | `boolean` | yes |  |
 | `sort_order` | `integer` | yes |  |
-| `visibility` | `string` | yes |  |
+| `visibility` | `string` | yes | `private` (default), or `public`: anyone can read the collection's records with no key at /ogc |
 | `trust_config` | `object \| null` | no |  |
 | `created_at` | `string` | yes |  |
 | `updated_at` | `string` | yes |  |
