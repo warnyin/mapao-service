@@ -26,7 +26,7 @@ show `candidates` and let the user choose. The postcode is extracted into `parts
 | --- | --- | --- | --- |
 | `admin` | `Admin \| null` | yes |  |
 | `candidates` | `list[Candidate]` | yes |  |
-| `parts` | `object` | yes |  |
+| `parts` | `object` | yes | Only the parts found, as written; a part that is not in the text is omitted, never null |
 | `residual` | `string` | yes |  |
 | `confidence` | `number` | yes |  |
 | `dataset_version` | `string` | yes |  |
@@ -158,6 +158,7 @@ debounce at least 250 ms and send from 2 characters; a 304 (If-None-Match) costs
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `items` | `list[SearchItem]` | yes |  |
+| `truncated` | `boolean` | yes |  |
 | `dataset_version` | `string` | yes |  |
 | `attribution` | `string` | yes |  |
 
