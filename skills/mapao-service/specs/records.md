@@ -43,7 +43,7 @@ Supports: type filter, campaign filter, bbox, proximity, JSONB attribute filter.
 | `type` | `string` | no |  |
 | `id` | `string` | yes |  |
 | `geometry` | `object \| null` | yes |  |
-| `properties` | `object` | yes |  |
+| `properties` | `object` | yes | record_type_id, campaign_id, status, attributes, event_date, created_at, version, admin, trust. `admin` is `{adm1, adm2, adm3}` (each a P-code or null) or null when the record has no `admin_pcode` (outside the loaded boundaries, no geometry, or no dataset): check `admin` before reading `admin.adm3`. |
 
 
 ### `POST /api/v1/records/`
@@ -100,7 +100,7 @@ within 24 h replays the stored 201 (``Idempotent-Replayed: true``).
 | `created_at` | `string` | yes |  |
 | `updated_at` | `string` | yes |  |
 | `version` | `integer` | yes |  |
-| `admin_pcode` | `string \| null` | no |  |
+| `admin_pcode` | `string \| null` | no | Deepest P-code that contains the geometry's point-on-surface: 8 characters (`TH` + 6 digits) for a tambon, shorter (`TH`, `TH10`, `TH1001`) where no deeper unit covers the point; null outside the loaded boundaries, without geometry, or with no dataset. Server-derived; a client value is ignored. |
 | `trust` | `object \| null` | no |  |
 
 
@@ -184,7 +184,7 @@ Like GET /records/, every status is included unless ``status`` is given.
 | `type` | `string` | no |  |
 | `id` | `string` | yes |  |
 | `geometry` | `object \| null` | yes |  |
-| `properties` | `object` | yes |  |
+| `properties` | `object` | yes | record_type_id, campaign_id, status, attributes, event_date, created_at, version, admin, trust. `admin` is `{adm1, adm2, adm3}` (each a P-code or null) or null when the record has no `admin_pcode` (outside the loaded boundaries, no geometry, or no dataset): check `admin` before reading `admin.adm3`. |
 
 
 ### `DELETE /api/v1/records/{record_id}`
@@ -231,7 +231,7 @@ Get a single record as GeoJSON Feature.
 | `type` | `string` | no |  |
 | `id` | `string` | yes |  |
 | `geometry` | `object \| null` | yes |  |
-| `properties` | `object` | yes |  |
+| `properties` | `object` | yes | record_type_id, campaign_id, status, attributes, event_date, created_at, version, admin, trust. `admin` is `{adm1, adm2, adm3}` (each a P-code or null) or null when the record has no `admin_pcode` (outside the loaded boundaries, no geometry, or no dataset): check `admin` before reading `admin.adm3`. |
 
 
 ### `PATCH /api/v1/records/{record_id}`
@@ -282,7 +282,7 @@ conditional on the current ``version``; a mismatch is 412 ``PRECONDITION_FAILED`
 | `created_at` | `string` | yes |  |
 | `updated_at` | `string` | yes |  |
 | `version` | `integer` | yes |  |
-| `admin_pcode` | `string \| null` | no |  |
+| `admin_pcode` | `string \| null` | no | Deepest P-code that contains the geometry's point-on-surface: 8 characters (`TH` + 6 digits) for a tambon, shorter (`TH`, `TH10`, `TH1001`) where no deeper unit covers the point; null outside the loaded boundaries, without geometry, or with no dataset. Server-derived; a client value is ignored. |
 | `trust` | `object \| null` | no |  |
 
 
@@ -337,6 +337,6 @@ Members / viewers are not granted the permission and will 403.
 | `created_at` | `string` | yes |  |
 | `updated_at` | `string` | yes |  |
 | `version` | `integer` | yes |  |
-| `admin_pcode` | `string \| null` | no |  |
+| `admin_pcode` | `string \| null` | no | Deepest P-code that contains the geometry's point-on-surface: 8 characters (`TH` + 6 digits) for a tambon, shorter (`TH`, `TH10`, `TH1001`) where no deeper unit covers the point; null outside the loaded boundaries, without geometry, or with no dataset. Server-derived; a client value is ignored. |
 | `trust` | `object \| null` | no |  |
 
