@@ -66,8 +66,8 @@ within 24 h replays the stored 201 (``Idempotent-Replayed: true``).
 | `geom` | `object \| null` | no | GeoJSON geometry |
 | `status` | `string` | no |  |
 | `attributes` | `object` | no | Dynamic JSONB data |
-| `external_ref` | `string \| null` | no |  |
-| `event_date` | `string \| null` | no |  |
+| `external_ref` | `string \| null` | no | Your own id for this record; unique within a campaign (409 EXTERNAL_REF_EXISTS), free otherwise |
+| `event_date` | `string \| null` | no | When the thing happened, as you define it. Stored as sent; MaPao does not use it |
 | `location` | `LocationEvidence \| null` | no |  |
 
 **`LocationEvidence`**
