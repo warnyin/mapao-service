@@ -24,31 +24,31 @@ show `candidates` and let the user choose. The postcode is extracted into `parts
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `admin` | `Admin \| null` | yes |  |
-| `candidates` | `list[Candidate]` | yes |  |
+| `admin` | `Admin \| null` | yes | The best candidate's units, only when `confidence` ≥ 0.6; else null |
+| `candidates` | `list[Candidate]` | yes | Up to `limit` candidates whose levels nest, best first |
 | `parts` | `object` | yes | Only the parts found, as written; a part that is not in the text is omitted, never null |
-| `residual` | `string` | yes |  |
-| `confidence` | `number` | yes |  |
-| `dataset_version` | `string` | yes |  |
-| `attribution` | `string` | yes |  |
+| `residual` | `string` | yes | Words not used by the best candidate, admin words left out; "" when everything was read. A place name here was not used: misspelt, too short, or it disagrees with the other levels |
+| `confidence` | `number` | yes | 0-1: the best score, scaled down when a rival candidate (not its own parent) scores within 0.30 of it; equal rivals give 0 |
+| `dataset_version` | `string` | yes | The active boundary dataset these units come from |
+| `attribution` | `string` | yes | Show it wherever you display the units |
 
 **`Admin`**
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `adm1` | `Unit \| null` | yes |  |
-| `adm2` | `Unit \| null` | yes |  |
-| `adm3` | `Unit \| null` | yes |  |
+| `adm1` | `Unit \| null` | yes | Province |
+| `adm2` | `Unit \| null` | yes | District; null when the text named a province only |
+| `adm3` | `Unit \| null` | yes | Tambon; null when the text named no tambon that fits (ask for it if needed) |
 
 **`Candidate`**
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `adm1` | `Unit \| null` | yes |  |
-| `adm2` | `Unit \| null` | yes |  |
-| `adm3` | `Unit \| null` | yes |  |
-| `score` | `number` | yes |  |
-| `matched` | `list[Matched]` | yes |  |
+| `adm1` | `Unit \| null` | yes | Province |
+| `adm2` | `Unit \| null` | yes | District (Bangkok: เขต) |
+| `adm3` | `Unit \| null` | yes | Tambon (Bangkok: แขวง); null when the text named none this candidate uses |
+| `score` | `number` | yes | 0-1: about 0.30 per level read from the text, more when its admin word agrees, less when the word names another level or the match is fuzzy; +0.10 for a tambon |
+| `matched` | `list[Matched]` | yes | One entry per level the candidate has, province first |
 
 **`Unit`**
 
@@ -62,11 +62,11 @@ show `candidates` and let the user choose. The postcode is extracted into `parts
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `level` | `integer` | yes |  |
-| `span` | `array \| null` | yes |  |
-| `text` | `string \| null` | yes |  |
-| `inferred` | `boolean` | yes |  |
-| `fuzzy` | `boolean` | yes |  |
+| `level` | `integer` | yes | 1 province, 2 district, 3 tambon |
+| `span` | `array \| null` | yes | [start, end) character range in your text; null when inferred |
+| `text` | `string \| null` | yes | The words of your text read as this level; null when inferred |
+| `inferred` | `boolean` | yes | True when this level came from the P-code of a deeper level, not your text |
+| `fuzzy` | `boolean` | yes | True for a guess at a misspelt Latin name: confirm it with the user |
 
 
 ### `GET /api/v1/boundaries/datasets/active`
