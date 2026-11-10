@@ -14,7 +14,7 @@ show `candidates` and let the user choose. The postcode is extracted into `parts
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `text` | `string` | yes | One address line, Thai or English (up to 300 characters) |
-| `within` | `string \| null` | no | Only units under this P-code, e.g. TH10 |
+| `within` | `string \| null` | no | Only units under this P-code, e.g. TH10 (case-insensitive) |
 | `limit` | `integer` | no | Candidates to return |
 
 **Responses**
@@ -147,7 +147,7 @@ debounce at least 250 ms and send from 2 characters; a 304 (If-None-Match) costs
 | --- | --- | --- | --- | --- |
 | `q` | query | `string` | yes | Thai or English name; the admin word (เขต, Amphoe ...), spaces and case are ignored |
 | `level` | query | `integer \| null` | no | 1 province, 2 district, 3 tambon |
-| `within` | query | `string \| null` | no | Only units under this P-code, e.g. TH10 |
+| `within` | query | `string \| null` | no | Only units under this P-code, e.g. TH10 (case-insensitive) |
 | `limit` | query | `integer` | no |  |
 
 **Responses**

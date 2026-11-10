@@ -21,7 +21,7 @@ Supports: type filter, campaign filter, bbox, proximity, JSONB attribute filter.
 | `lat` | query | `number \| null` | no | Latitude for proximity search |
 | `radius_m` | query | `number \| null` | no | Radius in meters for proximity search |
 | `attr_filter` | query | `string \| null` | no | JSONB filter, e.g. {"diesel_available":true} |
-| `admin` | query | `string \| null` | no | Admin P-code prefix |
+| `admin` | query | `string \| null` | no | Admin P-code prefix, e.g. TH10, TH1001 or TH100401 (case-insensitive) |
 | `page` | query | `integer` | no |  |
 | `page_size` | query | `integer` | no |  |
 

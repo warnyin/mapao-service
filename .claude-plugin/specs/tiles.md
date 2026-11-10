@@ -40,7 +40,7 @@ The caller's tenant's records (layer ``records``); soft-deleted records are left
 | `y` | path | `integer` | yes |  |
 | `record_type_id` | query | `string \| null` | no |  |
 | `status` | query | `string \| null` | no |  |
-| `admin` | query | `string \| null` | no | Admin P-code prefix |
+| `admin` | query | `string \| null` | no | Admin P-code prefix, e.g. TH10, TH1001 or TH100401 (case-insensitive) |
 
 **Responses**
 
